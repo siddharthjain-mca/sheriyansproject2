@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteNest | Study Resources</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg: #0b1020;
+            --panel: #121a2c;
+            --panel2: #182238;
+            --border: #263249;
+            --text: #f1f5ff;
+            --muted: #94a3b8;
+            --primary: #8b7cff;
+            --cyan: #55d6be;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            border-bottom: 1px solid var(--border);
+            background: #0b1020;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 76px;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            color: var(--cyan);
+            margin-right: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: .85;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 65px 0 38px;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 50% 0%,
+                    #352d7044, transparent 65%);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            color: var(--cyan);
+            background: #55d6be12;
+            border: 1px solid #55d6be35;
+            padding: 6px 13px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 53px);
+            line-height: 1.15;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, #a99cff, #55d6be);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 590px;
+            margin: 0 auto 28px;
+            font-size: 14px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 650px;
+            margin: auto;
+            padding: 8px 10px 8px 17px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .search-box .search-icon {
+            font-size: 20px;
+            color: var(--muted);
+        }
+
+        .search-box input {
+            min-width: 0;
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 13px;
+        }
+
+        .search-box input::placeholder {
+            color: #718096;
+        }
+
+        .search-box button {
+            white-space: nowrap;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 28px 0 45px;
+        }
+
+        .stat-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #8b7cff1c;
+            font-size: 21px;
+        }
+
+        .stat-card h3 {
+            font-size: 22px;
+        }
+
+        .stat-card p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* MAIN CONTENT */
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+            letter-spacing: -.6px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .text-link {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 13px;
+            margin-bottom: 48px;
+        }
+
+        .subject {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 19px 10px;
+            border-radius: 13px;
+            text-align: center;
+            transition: .2s;
+        }
+
+        .subject:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .subject .emoji {
+            display: block;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .subject h4 {
+            font-size: 12px;
+        }
+
+        .subject p {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        /* RESOURCE SECTION */
+
+        .resources-section {
+            padding-bottom: 70px;
+        }
+
+        .resource-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 8px;
+            padding: 8px 13px;
+            font-size: 12px;
+        }
+
+        .filter.selected {
+            background: #8b7cff22;
+            border-color: var(--primary);
+            color: #c6beff;
+        }
+
+        .sort-select {
+            color: var(--text);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 9px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .resource-card {
+            border: 1px solid var(--border);
+            background: var(--panel);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: .2s;
+        }
+
+        .resource-card:hover {
+            border-color: #6155a7;
+            transform: translateY(-4px);
+        }
+
+        .card-cover {
+            height: 145px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-purple {
+            background: linear-gradient(135deg, #43388d, #8b7cff);
+        }
+
+        .cover-blue {
+            background: linear-gradient(135deg, #173b66, #3984c9);
+        }
+
+        .cover-green {
+            background: linear-gradient(135deg, #15584d, #40bba0);
+        }
+
+        .cover-orange {
+            background: linear-gradient(135deg, #793e29, #e69b5b);
+        }
+
+        .cover-pink {
+            background: linear-gradient(135deg, #79345d, #df80b5);
+        }
+
+        .cover-cyan {
+            background: linear-gradient(135deg, #155567, #55d6be);
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-label {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #00000030;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .cover-title {
+            margin-top: 14px;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 220px;
+        }
+
+        .cover-art {
+            position: absolute;
+            right: 15px;
+            bottom: 0;
+            font-size: 75px;
+            opacity: .3;
+            transform: rotate(-10deg);
+        }
+
+        .bookmark {
+            position: relative;
+            z-index: 2;
+            width: 33px;
+            height: 33px;
+            border-radius: 9px;
+            border: 1px solid #ffffff40;
+            background: #00000020;
+            color: white;
+        }
+
+        .card-body {
+            padding: 18px;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .tag {
+            color: var(--cyan);
+            background: #55d6be12;
+            padding: 3px 7px;
+            border-radius: 5px;
+        }
+
+        .card-body h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .card-description {
+            font-size: 12px;
+            color: var(--muted);
+            min-height: 39px;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding-top: 16px;
+            margin-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #2b3650;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-info h4 {
+            font-size: 11px;
+        }
+
+        .author-info p {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .rating {
+            color: #f5c66d;
+            font-size: 11px;
+        }
+
+        /* CTA */
+
+        .cta {
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #8b7cff50;
+            background:
+                radial-gradient(ellipse at right, #8b7cff2b, transparent 55%),
+                var(--panel);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 65px;
+        }
+
+        .cta h2 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .cta p {
+            font-size: 13px;
+            color: var(--muted);
+            max-width: 480px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        footer p,
+        footer a {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .subjects {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .resource-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-content {
+                flex-wrap: wrap;
+                padding: 14px 0;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .nav-actions .btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .hero {
+                padding-top: 45px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .search-box {
+                flex-wrap: wrap;
+            }
+
+            .search-box button {
+                width: 100%;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .subjects {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-controls {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .section-heading h2 {
+                font-size: 19px;
+            }
+
+            .cta {
+                padding: 25px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cta h2 {
+                font-size: 22px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-content">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">✦</span>Note<span>Nest</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#" class="active">Discover</a>
+                <a href="#subjects">Subjects</a>
+                <a href="#resources">Resources</a>
+                <a href="#upload">Community</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#resources" class="btn">Explore</a>
+                <a href="#upload" class="btn btn-primary">+ Share Notes</a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+
+            <span class="eyebrow">✦ YOUR CAMPUS KNOWLEDGE HUB</span>
+
+            <h1>
+                Learn smarter.<br>
+                <span class="gradient">Share knowledge.</span>
+            </h1>
+
+            <p>
+                Discover quality study notes, helpful resources, and learning
+                material shared by students like you. Everything you need,
+                all in one place.
+            </p>
+
+            <form class="search-box" action="#resources" method="get">
+                <span class="search-icon">⌕</span>
+                <input type="search" name="q" placeholder="Search notes, subjects, topics..."
+                    aria-label="Search study resources">
+                <button class="btn btn-primary" type="submit">
+                    Search Resources
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="container">
+        <div class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div>
+                    <h3>1,250+</h3>
+                    <p>Study Resources</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div>
+                    <h3>850+</h3>
+                    <p>Student Contributors</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div>
+                    <h3>4.9/5</h3>
+                    <p>Community Rating</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SUBJECTS -->
+    <section class="container" id="subjects">
+
+        <div class="section-heading">
+            <div>
+                <h2>Explore Subjects</h2>
+                <p>Find resources for your favourite subjects.</p>
+            </div>
+            <a href="#resources" class="text-link">View all →</a>
+        </div>
+
+        <div class="subjects">
+
+            <a href="#resources" class="subject">
+                <span class="emoji">💻</span>
+                <h4>Programming</h4>
+                <p>240 resources</p>
+            </a>
+
+            <a href="#resources" class="subject">
+                <span class="emoji">🧠</span>
+                <h4>Artificial Intelligence</h4>
+                <p>180 resources</p>
+            </a>
+
+            <a href="#resources" class="subject">
+                <span class="emoji">📊</span>
+                <h4>Data Science</h4>
+                <p>125 resources</p>
+            </a>
+
+            <a href="#resources" class="subject">
+                <span class="emoji">🗄️</span>
+                <h4>Database</h4>
+                <p>160 resources</p>
+            </a>
+
+            <a href="#resources" class="subject">
+                <span class="emoji">🌐</span>
+                <h4>Web Development</h4>
+                <p>210 resources</p>
+            </a>
+
+            <a href="#resources" class="subject">
+                <span class="emoji">📐</span>
+                <h4>Mathematics</h4>
+                <p>145 resources</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <main class="container resources-section" id="resources">
+
+        <div class="section-heading">
+            <div>
+                <h2>Popular Resources</h2>
+                <p>Handpicked learning material from the community.</p>
+            </div>
+            <a href="#upload" class="text-link">Contribute yours →</a>
+        </div>
+
+        <div class="resource-controls">
+
+            <div class="filters">
+                <button class="filter selected" type="button">All Resources</button>
+                <button class="filter" type="button">Notes</button>
+                <button class="filter" type="button">PDFs</button>
+                <button class="filter" type="button">Presentations</button>
+                <button class="filter" type="button">Question Papers</button>
+            </div>
+
+            <select class="sort-select" aria-label="Sort resources">
+                <option>Most Popular</option>
+                <option>Recently Added</option>
+                <option>Highest Rated</option>
+            </select>
+
+        </div>
+
+        <div class="resource-grid">
+
+            <!-- CARD 1 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-purple">
+                    <div class="cover-content">
+                        <span class="cover-label">PDF NOTES</span>
+                        <div class="cover-title">Data Structures<br>& Algorithms</div>
+                    </div>
+                    <span class="cover-art">⌘</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark DSA notes">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Programming</span>
+                        <span>📄 42 pages</span>
+                    </div>
+                    <h3>Complete DSA Revision Notes</h3>
+                    <p class="card-description">
+                        Arrays, linked lists, stacks, queues, trees and
+                        essential algorithms for exam preparation.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">AK</div>
+                        <div class="author-info">
+                            <h4>Aditya Kumar</h4>
+                            <p>Uploaded 2 days ago</p>
+                        </div>
+                        <span class="rating">★ 4.9</span>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CARD 2 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-blue">
+                    <div class="cover-content">
+                        <span class="cover-label">STUDY GUIDE</span>
+                        <div class="cover-title">Machine<br>Learning Basics</div>
+                    </div>
+                    <span class="cover-art">◈</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark machine learning guide">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Artificial Intelligence</span>
+                        <span>📄 28 pages</span>
+                    </div>
+                    <h3>Introduction to Machine Learning</h3>
+                    <p class="card-description">
+                        Learn supervised and unsupervised learning,
+                        model training and evaluation fundamentals.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">PS</div>
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Uploaded 4 days ago</p>
+                        </div>
+                        <span class="rating">★ 4.8</span>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CARD 3 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-green">
+                    <div class="cover-content">
+                        <span class="cover-label">QUICK REVISION</span>
+                        <div class="cover-title">SQL & Database<br>Management</div>
+                    </div>
+                    <span class="cover-art">▤</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark SQL notes">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Database</span>
+                        <span>📄 35 pages</span>
+                    </div>
+                    <h3>SQL Queries and DBMS Notes</h3>
+                    <p class="card-description">
+                        Practice joins, subqueries, normalization,
+                        keys and frequently used SQL commands.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">RS</div>
+                        <div class="author-info">
+                            <h4>Rahul Singh</h4>
+                            <p>Uploaded 1 week ago</p>
+                        </div>
+                        <span class="rating">★ 4.7</span>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CARD 4 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-orange">
+                    <div class="cover-content">
+                        <span class="cover-label">EXAM PREP</span>
+                        <div class="cover-title">Operating<br>Systems</div>
+                    </div>
+                    <span class="cover-art">⚙️</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark operating systems notes">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Computer Science</span>
+                        <span>📄 31 pages</span>
+                    </div>
+                    <h3>Operating Systems Revision</h3>
+                    <p class="card-description">
+                        Process scheduling, memory management,
+                        deadlocks and file system concepts.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">NK</div>
+                        <div class="author-info">
+                            <h4>Neha Kapoor</h4>
+                            <p>Uploaded 3 days ago</p>
+                        </div>
+                        <span class="rating">★ 4.8</span>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CARD 5 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-pink">
+                    <div class="cover-content">
+                        <span class="cover-label">PRESENTATION</span>
+                        <div class="cover-title">Web Development<br>Fundamentals</div>
+                    </div>
+                    <span class="cover-art">⌘</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark web development notes">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Web Development</span>
+                        <span>📑 24 slides</span>
+                    </div>
+                    <h3>HTML and CSS Study Material</h3>
+                    <p class="card-description">
+                        Understand page structure, CSS selectors,
+                        flexbox, grid and responsive layouts.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">VM</div>
+                        <div class="author-info">
+                            <h4>Vikram Mehta</h4>
+                            <p>Uploaded 5 days ago</p>
+                        </div>
+                        <span class="rating">★ 4.9</span>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- CARD 6 -->
+            <article class="resource-card">
+
+                <div class="card-cover cover-cyan">
+                    <div class="cover-content">
+                        <span class="cover-label">QUESTION BANK</span>
+                        <div class="cover-title">Mathematics<br>Practice Set</div>
+                    </div>
+                    <span class="cover-art">∑</span>
+                    <button class="bookmark" type="button" aria-label="Bookmark mathematics notes">♡</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="resource-meta">
+                        <span class="tag">Mathematics</span>
+                        <span>📄 50 questions</span>
+                    </div>
+                    <h3>Important Mathematics Questions</h3>
+                    <p class="card-description">
+                        Practice matrices, determinants, rank,
+                        probability and important numerical problems.
+                    </p>
+                    <div class="author">
+                        <div class="avatar">SJ</div>
+                        <div class="author-info">
+                            <h4>Sneha Joshi</h4>
+                            <p>Uploaded 6 days ago</p>
+                        </div>
+                        <span class="rating">★ 4.6</span>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+    </main>
+
+    <!-- CONTRIBUTION CTA -->
+    <section class="container" id="upload">
+        <div class="cta">
+            <div>
+                <span class="eyebrow">GROW TOGETHER</span>
+                <h2>Your notes can help someone succeed.</h2>
+                <p>
+                    Share your study materials with fellow students.
+                    Build a helpful learning community, one resource at a time.
+                </p>
+            </div>
+
+            <a href="mailto:your-email@example.com" class="btn btn-primary">Share Your Resources ↗️</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-content">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">✦</span>Note<span>Nest</span>
+            </a>
+
+            <p>© 2026 NoteNest. Made for students, by students.</p>
+
+            <div class="footer-links">
+                <a href="#subjects">Subjects</a>
+                <a href="#resources">Resources</a>
+                <a href="#upload">Contribute</a>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>
